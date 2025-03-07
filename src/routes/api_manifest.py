@@ -6,7 +6,7 @@ from utils.otel import get_otel_tracer
 from utils.manifests import get_manifest_as_dict
 
 router = APIRouter()
-_counter = create_counter("manifest_api_counter", "Health API counter")
+_counter = create_counter("manifest_api_counter", "Manifest API counter")
 
 @router.get("")
 def get_manifest():

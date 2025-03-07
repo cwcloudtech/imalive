@@ -1,4 +1,3 @@
-import base64
 import re
 
 def is_not_empty (var):

@@ -1,12 +1,12 @@
-fastapi[all]
+fastapi>=0.115.8, <1.0.0
+fastapi-utils>=0.8.0, <1.0.0
+uvicorn>=0.34.0, <1.0.0
+prometheus-fastapi-instrumentator>=7.0.2, <8.0.0
+opentelemetry-api>=1.0.0, <1.23.0
+opentelemetry-sdk>=1.0.0, <1.23.0
+opentelemetry-exporter-otlp>=1.0.0, <1.23.0
+opentelemetry-instrumentation-fastapi
 requests
-uvicorn[standard]
-fastapi-utils
 asgi-correlation-id
 psutil
-prometheus-fastapi-instrumentator
-opentelemetry-api
-opentelemetry-sdk
-opentelemetry-instrumentation-fastapi
-opentelemetry-exporter-otlp
 pyyaml

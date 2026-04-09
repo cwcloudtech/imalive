@@ -1,4 +1,4 @@
-ARG PYTHON_VERSION=3.13.1-alpine
+ARG PYTHON_VERSION=3.14.0-alpine
 
 FROM python:${PYTHON_VERSION} AS api
 

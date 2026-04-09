@@ -6,13 +6,13 @@
     <img src="./img/logo.png"/>
 </p>
 
-Let your raspberry pi nodes (or any computer/virtual machines as well) sing like Céline Dion `I'm alive!`.
+Let your machines sing like Céline Dion `I'm alive!`.
 
 <p align="center">
     <img src="./img/celine.jpeg"/>
 </p>
 
-Just a dummy healthcheck api and metric exporterfor your nodes (support x86 and armhf for raspberrypi). It's also supported by [comwork cloud](https://doc.cloud.comwork.io/docs/tutorials/imalive).
+Just a dummy healthcheck api and metric exporter for your nodes. It's also supported by [comwork cloud](https://doc.cloud.comwork.io/docs/tutorials/imalive).
 
 It provide a http/restful endpoint that you can use as a healthcheck rule to your loadbalancer and also publish a heartbit in stdout (usefull if you collect it in a log/alerting management system such as elasticstack).
 
@@ -40,8 +40,6 @@ And can also send the metrics and some traces through OTLP/Grpc. Here's example 
 
 The image is available and versioned here: https://hub.docker.com/r/comworkio/imalive-api
 
-An example of exposed API instance: https://imalive.comwork.io
-
 ## Getting started
 
 ### Running with ansible
@@ -63,12 +61,6 @@ $ docker-compose up
 ```
 
 You can check the API on [localhost:8080/docs](http://localhost:8080/docs) to see the Swagger docs.
-
-If you want to test on a raspberrypi or any other ARM device, use this command instead:
-
-```shell
-$ docker-compose -f docker-compose-arm.yml up
-```
 
 ### Running with K3D (Kubernetes / helm)
 

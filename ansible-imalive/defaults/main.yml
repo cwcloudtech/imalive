@@ -1,5 +1,5 @@
 ---
-imalive_api_version: 4.3.1
+imalive_api_version: 4.3.2
 imalive_port: 8099
 imalive_wait_time: 300
 imalive_force_recreate: true

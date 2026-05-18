@@ -5,8 +5,8 @@ from utils.common import is_empty, is_empty_key, is_not_empty
 from utils.logger import log_msg
 
 _node_name = os.environ['IMALIVE_NODE_NAME']
-_webhook_url = os.getenv('IMALIVE_WEBHOOK_URL')
-_webhook_auth_basic = os.getenv('IMALIVE_WEBHOOK_AUTH_BASIC')
+_webhook_url = os.getenv('WEBHOOK_URL')
+_webhook_auth_basic = os.getenv('WEBHOOK_BASIC_AUTH_HEADER')
 
 def notify(level, payload):
     if is_empty(payload):

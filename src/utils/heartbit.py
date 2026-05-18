@@ -65,8 +65,6 @@ def heartbit():
         while True:
             with get_otel_tracer().start_as_current_span("imalive-heartbit"):
                 payload = all_metrics()
-                payload['type'] = "heartbit"
-                payload['message'] = "I'm alive"
 
                 cpu(payload)
                 ram(payload)

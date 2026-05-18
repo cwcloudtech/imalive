@@ -14,6 +14,7 @@ from datetime import datetime
 from time import sleep
 from requests.auth import HTTPBasicAuth
 
+from utils.notify import notify
 from utils.common import is_empty_key, get_or_else, is_not_empty, is_not_empty_key, del_key_if_exists, is_true, sanitize_header_name
 from utils.gauge import create_gauge, set_gauge
 from utils.heartbit import WAIT_TIME
@@ -47,7 +48,7 @@ def fail_monitor(monitor, gauges):
     vdate, labels, pmonitor, _, _ = init_vars_monitor(monitor)
 
     type_monitor = monitor['type'] if is_not_empty_key(monitor, 'type') else "undefined"
-    log_msg("ERROR", {
+    notify("ERROR", {
         "status": "ko",
         "type": "monitor",
         "time": vdate.isoformat(),
@@ -60,7 +61,7 @@ def check_tcp_monitor(monitor, gauges):
     vdate, labels, pmonitor, level, timeout = init_vars_monitor(monitor)
 
     if is_empty_key(monitor, 'url'):
-        log_msg("ERROR", {
+        notify("ERROR", {
             "status": "ko",
             "type": "monitor",
             "time": vdate.isoformat(),
@@ -71,7 +72,7 @@ def check_tcp_monitor(monitor, gauges):
         return
 
     if not re.match(r"^[a-zA-Z0-9.-]+:\d+$", monitor['url']):
-        log_msg("ERROR", {
+        notify("ERROR", {
             "status": "ko",
             "type": "monitor",
             "time": vdate.isoformat(),
@@ -89,7 +90,7 @@ def check_tcp_monitor(monitor, gauges):
         with socket.create_connection((host, port), timeout=timeout):
             duration = time.time() - start_time
             set_gauge(gauges['result'], 1, {**labels, 'kind': 'result'})
-            log_msg(level, {
+            notify(level, {
                 "status": "ok",
                 "type": "monitor",
                 "time": vdate.isoformat(),
@@ -99,7 +100,7 @@ def check_tcp_monitor(monitor, gauges):
             })
     except (socket.timeout, ConnectionRefusedError, socket.error) as e:
         duration = time.time() - start_time
-        log_msg("ERROR", {
+        notify("ERROR", {
             "status": "ko",
             "type": "monitor",
             "time": vdate.isoformat(),
@@ -112,7 +113,7 @@ def check_http_monitor(monitor, gauges):
     vdate, labels, pmonitor, level, timeout = init_vars_monitor(monitor)
 
     if is_empty_key(monitor, 'url'):
-        log_msg("ERROR", {
+        notify("ERROR", {
             "status": "ko",
             "type": "monitor",
             "time": vdate.isoformat(),
@@ -154,7 +155,7 @@ def check_http_monitor(monitor, gauges):
             duration = response.elapsed.total_seconds()
             set_gauge(gauges['duration'], duration, {**labels, 'kind': 'duration'})
         else:
-            log_msg("ERROR", {
+            notify("ERROR", {
                 "status": "ko",
                 "type": "monitor",
                 "time": vdate.isoformat(),
@@ -165,7 +166,7 @@ def check_http_monitor(monitor, gauges):
             return
 
         if not check_status_code_pattern(response.status_code, expected_http_code):
-            log_msg("ERROR", {
+            notify("ERROR", {
                 "status": "ko",
                 "type": "monitor",
                 "time": vdate.isoformat(),
@@ -177,7 +178,7 @@ def check_http_monitor(monitor, gauges):
             return
 
         if is_not_empty(expected_contain) and expected_contain not in response.text:
-            log_msg("ERROR", {
+            notify("ERROR", {
                 "status": "ko",
                 "type": "monitor",
                 "time": vdate.isoformat(),
@@ -189,7 +190,7 @@ def check_http_monitor(monitor, gauges):
             return
 
         set_gauge(gauges['result'], 1, {**labels, 'kind': 'result'})
-        log_msg(level, {
+        notify(level, {
             "status": "ok",
             "type": "monitor",
             "time": vdate.isoformat(),
@@ -200,13 +201,12 @@ def check_http_monitor(monitor, gauges):
 
     except Exception as e:
         set_gauge(gauges['result'], 0, {**labels, 'kind': 'result'})
-        log_msg("ERROR", {
+        notify("ERROR", {
             "status": "ko",
             "type": "monitor",
             "time": vdate.isoformat(),
             "message": "Unexpected error",
             "error": "{}".format(e),
-            "family"
             "monitor": pmonitor
         })
 

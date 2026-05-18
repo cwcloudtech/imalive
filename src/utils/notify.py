@@ -13,8 +13,8 @@ def notify(level, payload):
     if is_empty(payload):
         payload = {}
 
-    if is_empty_key(payload, 'node'):
-        payload['node'] = _node_name 
+    if is_empty_key(payload, 'name'):
+        payload['name'] = _node_name
 
     log_msg(level, payload)
 

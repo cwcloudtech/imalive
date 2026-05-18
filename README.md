@@ -249,6 +249,12 @@ monitors:
         value: application/json
 ```
 
+## Pushing metrics to custom webhook
+
+You can also push the metrics to a custom webhook using the `WEBHOOK_URL` environment variable.
+
+And you can set up a basic auth header for the webhook with the `WEBHOOK_BASIC_AUTH_HEADER` environment variable (`user:password` base64 encoded).
+
 ## Development / contributions
 
 Go see this [documentation](./CONTRIBUTING.md)

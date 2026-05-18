@@ -59,6 +59,16 @@ spec:
               value: {{ $.Values.otlp_auth_header | quote }}
             {{ end }}
 
+            {{ if $.Values.webhook_url }}
+            - name: WEBHOOK_URL
+              value: {{ $.Values.webhook_url | quote }}
+            {{ end }}
+
+            {{ if $.Values.webhook_basic_auth_header }}
+            - name: WEBHOOK_BASIC_AUTH_HEADER
+              value: {{ $.Values.webhook_basic_auth_header | quote }}
+            {{ end }}
+
           {{- if .Values.extraEnvFrom }}
           envFrom:
           {{- with .Values.extraEnvFrom }}

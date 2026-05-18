@@ -253,7 +253,7 @@ monitors:
 
 You can also push the metrics to a custom webhook using the `WEBHOOK_URL` environment variable.
 
-And you can set up an authentication header for the webhook with the `WEBHOOK_AUTH_HEADER_NAME` and `WEBHOOK_AUTH_HEADER_VALUE` environment variables.
+You can also set up an authentication header for the webhook with the `WEBHOOK_AUTH_HEADER_NAME` and `WEBHOOK_AUTH_HEADER_VALUE` environment variables.
 
 ## Development / contributions
 

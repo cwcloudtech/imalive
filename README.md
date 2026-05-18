@@ -57,7 +57,7 @@ cp .env.example .env
 Then replace the values (like the `IMALIVE_NODE_NAME` with your node name). Then:
 
 ```shell
-$ docker-compose up
+$ docker compose up
 ```
 
 You can check the API on [localhost:8080/docs](http://localhost:8080/docs) to see the Swagger docs.

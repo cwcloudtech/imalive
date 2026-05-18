@@ -8,8 +8,7 @@ ENV PYTHONUNBUFFERED=1 \
     LISTEN_ADDR="0.0.0.0" \
     LISTEN_PORT=8080 \
     MANIFEST_FILE_PATH=manifest.json \
-    WAIT_TIME=10 \
-    LOG_FORMAT="json"
+    WAIT_TIME=10
 
 WORKDIR /app
 

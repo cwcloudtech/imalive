@@ -7,13 +7,12 @@ import sys
 from datetime import datetime
 from utils.cid import get_current_cid
 
-from utils.common import is_disabled, is_enabled, is_true
+from utils.common import is_disabled, is_empty_key, is_enabled, is_true
 
 SLACK_WEBHOOK_TPL = "https://hooks.slack.com/services/{}"
 DISCORD_WEBHOOK_TPL = "https://discord.com/api/webhooks/{}/slack"
 
 LOG_LEVEL = os.environ['LOG_LEVEL']
-LOG_FORMAT = os.getenv('LOG_FORMAT')
 NODE_NAME = os.getenv('IMALIVE_NODE_NAME', "anode")
 
 _slack_token = os.getenv('SLACK_TOKEN')
@@ -96,15 +95,22 @@ def quiet_log_msg (log_level, message):
     vdate = datetime.now().isoformat()
     cid = get_current_cid()
     formatted_log = "[{}][{}][{}][{}] {}".format(log_level, vdate, NODE_NAME, cid, message)
-    if is_enabled(LOG_FORMAT) and LOG_FORMAT == "json":
-        if isinstance(message, dict):
-            message['level'] = log_level
-            message['time'] = vdate
-            message['node'] = NODE_NAME
-            message['cid'] = cid
-            formatted_log = json.dumps(message)
-        else:
-            formatted_log = json.dumps({"body": message, "level": log_level, "time": vdate, "node": NODE_NAME, "cid": cid})
+    if not isinstance(message, dict):
+        message = { "message": message }
+
+    if is_empty_key(message, 'level'):
+        message['level'] = log_level
+
+    if is_empty_key(message, 'time'):
+        message['time'] = vdate
+
+    if is_empty_key(message, 'node'):
+        message['node'] = NODE_NAME
+
+    if is_empty_key(message, 'cid'):
+        message['cid'] = cid
+
+    formatted_log = json.dumps(message)
 
     if is_debug(log_level):
         logging.debug(formatted_log)

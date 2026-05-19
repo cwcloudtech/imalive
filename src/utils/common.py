@@ -62,3 +62,9 @@ def sanitize_metric_name(name: str):
 
 def sanitize_header_name(name: str) -> str:
     return '-'.join(word.capitalize() for word in name.split('-'))
+
+def is_response_ok(code):
+    return code >= 200 and code < 400
+
+def is_response_ko(code):
+    return not is_response_ok(code)

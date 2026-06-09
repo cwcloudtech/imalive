@@ -2,11 +2,13 @@ from routes import api_root as root
 from routes import api_health as health
 from routes import api_manifest as manifest
 from routes import api_metrics as metrics
+from routes import api_reboot as reboot
 
 root_routes = ['', '/v1']
 health_check_routes = ['/health', '/v1/health']
 manifest_routes = ['/manifest', '/v1/manifest']
 disk_routes = ['/metrics', '/v1/metrics']
+reboot_routes = ['/v1/reboot']
 
 def import_ressources(app):
     for route in root_routes:
@@ -20,3 +22,6 @@ def import_ressources(app):
     
     for route in disk_routes:
         app.include_router(metrics.router, tags=["Metrics"], prefix=route)
+
+    for route in reboot_routes:
+        app.include_router(reboot.router, tags=["Reboot"], prefix=route)

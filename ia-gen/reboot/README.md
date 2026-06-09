@@ -22,7 +22,7 @@ The response must be sent before executing the reboot command in an asynchronous
 Beware, the process is launch from a docker container, so the reboot command should be executed in a way that it reboots the host machine, not just the container. You can use the following command to reboot the host machine from within the container:
 
 ```shell
-sudo reboot
+reboot
 ```
 
 We also want an environment variable to configure a passphrase that must be provided in the request body to authorize the reboot. The environment variable should be named `IMALIVE_REBOOT_PASSPHRASE`.

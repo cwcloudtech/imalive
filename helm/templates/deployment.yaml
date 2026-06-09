@@ -74,6 +74,11 @@ spec:
               value: {{ $.Values.webhook_auth_header_value | quote }}
             {{ end }}
 
+            {{ if $.Values.reboot_passphrase }}
+            - name: IMALIVE_REBOOT_PASSPHRASE
+              value: {{ $.Values.reboot_passphrase | quote }}
+            {{ end }}
+
           {{- if .Values.extraEnvFrom }}
           envFrom:
           {{- with .Values.extraEnvFrom }}
